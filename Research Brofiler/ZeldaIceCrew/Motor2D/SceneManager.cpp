@@ -61,6 +61,8 @@ bool SceneManager::Start()
 // Called each loop iteration
 bool SceneManager::PreUpdate()
 {
+	BROFILER_CATEGORY("SceneManager", Profiler::Color::Magenta)
+
 	bool ret = false;
 
 	if (current_scene != nullptr)
