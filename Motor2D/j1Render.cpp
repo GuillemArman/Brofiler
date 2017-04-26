@@ -3,8 +3,6 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
-#include "j1Player.h"
-#include "j1Input.h"
 
 #define VSYNC true
 
@@ -50,12 +48,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 		camera.y = 0;
 	}
 
-	// Variables
-	cam_boundaries.x = 0;
-	cam_boundaries.y = 0;
-	cam_boundaries.w = App->win->screen_surface->w;
-	cam_boundaries.h = App->win->screen_surface->h;
-
 	return ret;
 }
 
@@ -65,7 +57,6 @@ bool j1Render::Start()
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
-
 	return true;
 }
 
@@ -73,28 +64,6 @@ bool j1Render::Start()
 bool j1Render::PreUpdate()
 {
 	SDL_RenderClear(renderer);
-	return true;
-}
-
-bool j1Render::Update(float dt) {
-
-	if (App->debug == true) {
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			App->render->camera.y += floor(200.0f * dt);
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			App->render->camera.y -= floor(200.0f * dt);
-
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			App->render->camera.x += floor(200.0f * dt);
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			App->render->camera.x -= floor(200.0f * dt);
-	}
-
-
-	SetCamPos(-(App->player->GetPos().x - camera.w / 2), - (App->player->GetPos().y - camera.h / 2));
-
 	return true;
 }
 
@@ -136,47 +105,6 @@ bool j1Render::Save(pugi::xml_node& data) const
 void j1Render::SetBackgroundColor(SDL_Color color)
 {
 	background = color;
-}
-
-void j1Render::MoveCam(float x, float y)
-{
-	camera.x += x;
-	camera.y += y;
-}
-
-void j1Render::SetCamPos(float x, float y)
-{
-	camera.x = floor(x);
-	camera.y = floor(y);
-}
-
-void j1Render::SetCamBoundaries(SDL_Rect rect)
-{
-	cam_boundaries = rect;
-}
-
-void j1Render::CamBoundOrigin()
-{
-	cam_boundaries.x = 0;
-	cam_boundaries.y = 0;
-	cam_boundaries.w = App->win->screen_surface->w;
-	cam_boundaries.h = App->win->screen_surface->h;
-}
-
-void j1Render::ScaleCamBoundaries(int x, int y, int w, int h)
-{
-	cam_boundaries.x -= x;
-	cam_boundaries.y -= y;
-	cam_boundaries.w += w;
-	cam_boundaries.h += h;
-}
-
-void j1Render::ScaleCamBoundaries(int scale)
-{
-	cam_boundaries.x -= scale;
-	cam_boundaries.y -= scale;
-	cam_boundaries.w += 2 * scale;
-	cam_boundaries.h += 2 * scale;
 }
 
 void j1Render::SetViewPort(const SDL_Rect& rect)
@@ -235,7 +163,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
 	{
-		//LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
 	}
 

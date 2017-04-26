@@ -10,20 +10,6 @@
 #endif
 #define NULL  0
 
-
-enum Direction {
-	FirstDir = 0,
-	Up,
-	Left,
-	Right,
-	Down,
-	Up_R,
-	Up_L,
-	Down_R,
-	Down_L,
-	LastDir
-};
-
 // Deletes a buffer
 #define RELEASE( x ) \
     {                        \
@@ -31,7 +17,7 @@ enum Direction {
 	    {                      \
       delete x;            \
 	  x = NULL;              \
-	    }                 \
+	    }                      \
     }
 
 // Deletes an array of buffers
@@ -49,28 +35,11 @@ enum Direction {
 #define MIN( a, b ) ( ((a) < (b)) ? (a) : (b) )
 #define MAX( a, b ) ( ((a) > (b)) ? (a) : (b) )
 #define TO_BOOL( a )  ( (a != 0) ? true : false )
-#define NULLRECT {0,0,0,0}
-#define NULLCOLOR {0,0,0,0}
-#define NULLPOINT {0,0}
-#define COLLIDER_MAX 200
 
-#define PLAYER_COLL_X_OFFSET 8
-#define PLAYER_COLL_Y_OFFSET 4
-
-#define ORIGIN_RESTART {300,350}
-#define LINK_RECT {0,0,32,32}
 typedef unsigned int uint;
 typedef unsigned __int32 uint32;
 typedef unsigned __int64 uint64;
 typedef unsigned char uchar;
-
-#define DEGTORAD 0.0174532925199432957f
-#define RADTODEG 57.295779513082320876f
-#define PI       3.1415926535897932384f
-
-#define PIXELS_PER_METER 50.0f // if touched change METER_PER_PIXEL too
-#define METER_PER_PIXEL 0.02f // this is 1 / PIXELS_PER_METER !
-
 
 template <class VALUE_TYPE> void SWAP(VALUE_TYPE& a, VALUE_TYPE& b)
 {

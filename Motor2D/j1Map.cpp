@@ -5,7 +5,6 @@
 #include "j1FileSystem.h"
 #include "j1Textures.h"
 #include "j1Map.h"
-#include "j1Player.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -32,11 +31,14 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
-	for(std::list<MapLayer*>::iterator item = data.layers.begin(); item != data.layers.end(); item++)
-	{
-		MapLayer* layer = (*item);
 
-		if(layer->properties.Get("NoDraw") == 1)
+	p2List_item<MapLayer*>* item = data.layers.start;
+
+	for(; item != NULL; item = item->next)
+	{
+		MapLayer* layer = item->data;
+
+		if(layer->properties.Get("Nodraw") != 0)
 			continue;
 
 		for(int y = 0; y < data.height; ++y)
@@ -60,28 +62,32 @@ void j1Map::Draw()
 
 int Properties::Get(const char* value, int default_value) const
 {
-	for (std::list<Property*>::const_iterator item = list.begin(); item != list.end(); ++item)
+	p2List_item<Property*>* item = list.start;
+
+	while(item)
 	{
-		if ((*item)->name == value)
-			return (*item)->value;
+		if(item->data->name == value)
+			return item->data->value;
+		item = item->next;
 	}
+
 	return default_value;
 }
 
 TileSet* j1Map::GetTilesetFromTileId(int id) const
 {
-	std::list<TileSet*>::const_iterator item = data.tilesets.begin();
-	TileSet* set = (*item);
+	p2List_item<TileSet*>* item = data.tilesets.start;
+	TileSet* set = item->data;
 
-	while(item != data.tilesets.end())
+	while(item)
 	{
-		if(id < (*item)->firstgid)
+		if(id < item->data->firstgid)
 		{
-			set = *(--item);
+			set = item->prev->data;
 			break;
 		}
-		set = (*item);
-		item++;
+		set = item->data;
+		item = item->next;
 	}
 
 	return set;
@@ -147,34 +153,30 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	return rect;
 }
 
-//TileData* TileSet::GetTileType(int tile_id)const
-//{
-//	
-//}
 // Called before quitting
 bool j1Map::CleanUp()
 {
 	LOG("Unloading map");
 
 	// Remove all tilesets
-	std::list<TileSet*>::iterator item;
-	item = data.tilesets.begin();
+	p2List_item<TileSet*>* item;
+	item = data.tilesets.start;
 
-	while(item != data.tilesets.end())
+	while(item != NULL)
 	{
-		RELEASE((*item));
-		item++;
+		RELEASE(item->data);
+		item = item->next;
 	}
 	data.tilesets.clear();
 
 	// Remove all layers
-	std::list<MapLayer*>::iterator item2;
-	item2 = data.layers.begin();
+	p2List_item<MapLayer*>* item2;
+	item2 = data.layers.start;
 
-	while(item2 != data.layers.end())
+	while(item2 != NULL)
 	{
-		RELEASE((*item2));
-		item2++;
+		RELEASE(item2->data);
+		item2 = item2->next;
 	}
 	data.layers.clear();
 
@@ -184,170 +186,6 @@ bool j1Map::CleanUp()
 	return true;
 }
 
-int j1Map::TileCheck(int x, int y, Direction dir) const
-{
-	int ret = 0;
-	//get the key navigation tiles(r)
-	//Note: aqui el que fa es guardarse el numero del tileset en el que estan 2 
-	//tiles clau de la navigation
-	//el de no es pot passar i el detector de canvi d'escena
-	int red_tile = data.tilesets.begin()._Ptr->_Myval->firstgid + NO_WALK_ID;//walkability tile to don't walk
-																			 //int blue_tile = red_tile + 7;//walkability tile to get inside a building
-
-	if (dir == Up)
-	{
-		iPoint ptemp = WorldToMap(x, y);
-		std::list<MapLayer*>::const_iterator item = data.layers.end();
-		item--;
-		int id_1 = (*item)->Get(ptemp.x, ptemp.y);
-
-		if (id_1 == red_tile)
-		{
-			ret = 1;
-		}
-		/*	else if (id_1 == blue_tile)
-		{
-		App->scene->switch_map = 1;
-		}*/
-		else
-			ret = 0;
-
-	}
-	if (dir == Left)
-	{
-		iPoint ptemp = WorldToMap(x, y);
-		std::list<MapLayer*>::const_iterator item = data.layers.end();
-		item--;
-		int id_1 = (*item)->Get(ptemp.x, ptemp.y);
-
-
-		if (id_1 == red_tile)
-		{
-			ret = 1;
-		}
-		else
-			ret = 0;
-	}
-	if (dir == Right)
-	{
-		iPoint ptemp = WorldToMap(x + 20, y);
-
-		std::list<MapLayer*>::const_iterator item = data.layers.end();
-		item--;
-		int id_1 = (*item)->Get(ptemp.x, ptemp.y);
-
-
-		if (id_1 == red_tile)
-		{
-			ret = 1;
-		}
-		else
-			ret = 0;
-	}
-	if (dir == Down)
-	{
-		iPoint ptemp = WorldToMap(x, y + 50);
-
-		std::list<MapLayer*>::const_iterator item = data.layers.end();
-		item--;
-		int id_1 = (*item)->Get(ptemp.x, ptemp.y);
-
-
-		if (id_1 == red_tile)
-		{
-			ret = 1;
-		}
-		/*else if (id_1 == blue_tile)
-		{
-		App->scene->switch_map = 2;
-		}*/
-		else
-			ret = 0;
-	}
-	if (dir == Down_L)
-	{
-		iPoint ptemp = WorldToMap(x, y + 50);
-
-		std::list<MapLayer*>::const_iterator item = data.layers.end();
-		item--;
-
-		int id_1 = (*item)->Get(ptemp.x, ptemp.y);
-
-
-		if (id_1 == red_tile)
-		{
-			ret = 1;
-		}
-		/*else if (id_1 == blue_tile)
-		{
-		App->scene->switch_map = 2;
-		}*/
-		else
-			ret = 0;
-	}
-	if (dir == Down_R)
-	{
-		iPoint ptemp = WorldToMap(x + 20, y + 50 );
-
-		std::list<MapLayer*>::const_iterator item = data.layers.end();
-		item--;
-
-		int id_1 = (*item)->Get(ptemp.x, ptemp.y);
-
-		if (id_1 == red_tile)
-		{
-			ret = 1;
-		}
-		/*else if (id_1 == blue_tile)
-		{
-		App->scene->switch_map = 2;
-		}*/
-		else
-			ret = 0;
-	}
-	if (dir == Up_R)
-	{
-		iPoint ptemp = WorldToMap(x + 20, y);
-
-		std::list<MapLayer*>::const_iterator item = data.layers.end();
-		item--;
-		int id_1 = (*item)->Get(ptemp.x, ptemp.y);
-
-		if (id_1 == red_tile)
-		{
-			ret = 1;
-		}
-		/*else if (id_1 == blue_tile)
-		{
-		App->scene->switch_map = 2;
-		}*/
-		else
-			ret = 0;
-	}
-	if (dir == Up_L)
-	{
-		iPoint ptemp = WorldToMap(x, y);
-
-		std::list<MapLayer*>::const_iterator item = data.layers.end();
-		item--;
-		int id_1 = (*item)->Get(ptemp.x, ptemp.y);
-
-
-		if (id_1 == red_tile)
-		{
-			ret = 1;
-		}
-		/*else if (id_1 == blue_tile)
-		{
-		App->scene->switch_map = 2;
-		}*/
-		else
-			ret = 0;
-	}
-
-	//retornarem 0 si podem caminar o si es una blue tile
-	return ret;
-}
 // Load new map
 bool j1Map::Load(const char* file_name)
 {
@@ -388,7 +226,7 @@ bool j1Map::Load(const char* file_name)
 			ret = LoadTilesetImage(tileset, set);
 		}
 
-		data.tilesets.push_back(set);
+		data.tilesets.add(set);
 	}
 
 	// Load layer info ----------------------------------------------
@@ -400,7 +238,7 @@ bool j1Map::Load(const char* file_name)
 		ret = LoadLayer(layer, lay);
 
 		if(ret == true)
-			data.layers.push_back(lay);
+			data.layers.add(lay);
 	}
 
 	if(ret == true)
@@ -409,25 +247,25 @@ bool j1Map::Load(const char* file_name)
 		LOG("width: %d height: %d", data.width, data.height);
 		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
 
-		std::list<TileSet*>::iterator item = data.tilesets.begin();
-		while(item != data.tilesets.end())
+		p2List_item<TileSet*>* item = data.tilesets.start;
+		while(item != NULL)
 		{
-			TileSet* s = (*item);
+			TileSet* s = item->data;
 			LOG("Tileset ----");
 			LOG("name: %s firstgid: %d", s->name.GetString(), s->firstgid);
 			LOG("tile width: %d tile height: %d", s->tile_width, s->tile_height);
 			LOG("spacing: %d margin: %d", s->spacing, s->margin);
-			item++;
+			item = item->next;
 		}
 
-		std::list<MapLayer*>::iterator item_layer = data.layers.begin();
-		while(item_layer != data.layers.end())
+		p2List_item<MapLayer*>* item_layer = data.layers.start;
+		while(item_layer != NULL)
 		{
-			MapLayer* l = (*item_layer);
+			MapLayer* l = item_layer->data;
 			LOG("Layer ----");
 			LOG("name: %s", l->name.GetString());
 			LOG("tile width: %d tile height: %d", l->width, l->height);
-			item_layer++;
+			item_layer = item_layer->next;
 		}
 	}
 
@@ -612,24 +450,24 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 			p->name = prop.attribute("name").as_string();
 			p->value = prop.attribute("value").as_int();
 
-			properties.list.push_back(p);
+			properties.list.add(p);
 		}
 	}
 
 	return ret;
 }
 
-
 bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
 	bool ret = false;
-	std::list<MapLayer*>::const_iterator item;
-	//iterate each layer
-	for (item = data.layers.begin(); item != data.layers.end(); item++)
-	{
-		MapLayer* layer = (*item);
+	p2List_item<MapLayer*>* item;
+	item = data.layers.start;
 
-		if (layer->properties.Get("Navigation", 0) == 0)
+	for(item = data.layers.start; item != NULL; item = item->next)
+	{
+		MapLayer* layer = item->data;
+
+		if(layer->properties.Get("Navigation", 0) == 0)
 			continue;
 
 		uchar* map = new uchar[layer->width*layer->height];
@@ -642,17 +480,16 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 				int i = (y*layer->width) + x;
 
 				int tile_id = layer->Get(x, y);
-				//ensure that the tile_id are correct(>0)
-				
-				if (tile_id == 10)
-					map[i] = 1;
-
 				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
 				
 				if(tileset != NULL)
 				{
-					//map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
-
+					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
+					/*TileType* ts = tileset->GetTileType(tile_id);
+					if(ts != NULL)
+					{
+						map[i] = ts->properties.Get("walkable", 1);
+					}*/
 				}
 			}
 		}
@@ -664,5 +501,6 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
 		break;
 	}
+
 	return ret;
 }

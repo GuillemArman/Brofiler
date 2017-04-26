@@ -2,28 +2,28 @@
 #define __j1MAP_H__
 
 #include "PugiXml/src/pugixml.hpp"
-#include "Point.h"
+#include "p2List.h"
+#include "p2Point.h"
 #include "j1Module.h"
-#include "j1Player.h"
-#define NO_WALK_ID 9
+
 // ----------------------------------------------------
 struct Properties
 {
 	struct Property
 	{
 		p2SString name;
-		bool value;
+		int value;
 	};
 
 	~Properties()
 	{
-		std::list<Property*>::iterator item;
-		item = list.begin();
+		p2List_item<Property*>* item;
+		item = list.start;
 
-		while(item != list.end())
+		while(item != NULL)
 		{
-			RELEASE((*item));
-			item++;
+			RELEASE(item->data);
+			item = item->next;
 		}
 
 		list.clear();
@@ -31,7 +31,7 @@ struct Properties
 
 	int Get(const char* name, int default_value = 0) const;
 
-	std::list<Property*>	list;
+	p2List<Property*>	list;
 };
 
 // ----------------------------------------------------
@@ -58,26 +58,10 @@ struct MapLayer
 };
 
 // ----------------------------------------------------
-enum TileTypes
-{
-	TILETYPE_UNKNOWN = 0,
-	TILETYPE_WALKABLE,
-	TILETYPE_NONWALKABLE,
-	TILETYPE_WATER,
-	//add here new tile types
-};
-struct TileData
-{
-	Properties properties;
-	int id;
-	TileTypes type;
-
-};
 struct TileSet
 {
 	SDL_Rect GetTileRect(int id) const;
-	TileData* GetTileType(int tile_id)const {};
-	
+
 	p2SString			name;
 	int					firstgid;
 	int					margin;
@@ -91,7 +75,6 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
-
 };
 
 enum MapTypes
@@ -110,8 +93,8 @@ struct MapData
 	int					tile_height;
 	SDL_Color			background_color;
 	MapTypes			type;
-	std::list<TileSet*>	tilesets;
-	std::list<MapLayer*>layers;
+	p2List<TileSet*>	tilesets;
+	p2List<MapLayer*>	layers;
 };
 
 // ----------------------------------------------------
@@ -139,7 +122,6 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
-	int TileCheck(int x, int y, Direction dir) const;
 
 private:
 

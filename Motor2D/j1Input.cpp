@@ -87,10 +87,6 @@ bool j1Input::PreUpdate()
 				windowEvents[WE_QUIT] = true;
 			break;
 
-			case SDL_TEXTINPUT:
-				/* Add new text onto the end of our text */
-				text += event.text.text;
-				break;
 			case SDL_WINDOWEVENT:
 				switch(event.window.event)
 				{
@@ -159,11 +155,4 @@ void j1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
-}
-
-p2SString j1Input::GetString()
-{
-	p2SString ret = text;
-	text.Trim();
-	return ret;
 }

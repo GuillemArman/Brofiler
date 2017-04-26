@@ -2,13 +2,13 @@
 #define __j1APP_H__
 
 #include "p2List.h"
-#include "p2Log.h"
 #include "j1Module.h"
 #include "j1PerfTimer.h"
 #include "j1Timer.h"
 #include "PugiXml\src\pugixml.hpp"
+//TODO 2: include Brofiler.h
 #include "Brofiler\Brofiler.h"
-//
+
 // Modules
 class j1Window;
 class j1Input;
@@ -16,17 +16,11 @@ class j1Render;
 class j1Textures;
 class j1Audio;
 class j1FileSystem;
-class SceneManager;
+class j1Scene;
 class j1Map;
 class j1PathFinding;
 class j1Fonts;
 class j1Gui;
-class j1Collision;
-class HUD;
-//class j1Console;			
-class j1Player;
-class EntityManager;
-class ModuleParticles;
 
 class j1App
 {
@@ -62,16 +56,8 @@ public:
 
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
-	void GetSaveGames(std::list<p2SString>& list_to_fill) const;
+	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
-	// Load an XML file
-	void LoadXML(const char* path, pugi::xml_document& doc);
-	void UnloadXML(pugi::xml_document& doc);
-
-	void CapFps(float fps);
-	void EndSDL();
-
-	void OpenWebPage(char* url);
 private:
 
 	// Load config file
@@ -96,8 +82,6 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
-	// Frame rate calculations uptade
-	void FrameRateCalculations();
 public:
 
 	// Modules
@@ -106,23 +90,16 @@ public:
 	j1Render*			render = NULL;
 	j1Textures*			tex = NULL;
 	j1Audio*			audio = NULL;
-	SceneManager*		scene_manager = NULL;
+	j1Scene*			scene = NULL;
 	j1FileSystem*		fs = NULL;
 	j1Map*				map = NULL;
 	j1PathFinding*		pathfinding = NULL;
 	j1Fonts*			font = NULL;
 	j1Gui*				gui = NULL;
-	//j1Console*			console = NULL;
-	j1Collision*			collisions = NULL;
-	j1Player*			player = NULL;
-	EntityManager*      entitymanager = NULL;
-	HUD*				hud = NULL;
-	ModuleParticles*	particle = NULL;
 
-	bool			    debug_mode = false;
 private:
 
-	std::list<j1Module*>	modules;
+	p2List<j1Module*>	modules;
 	int					argc;
 	char**				args;
 
@@ -143,12 +120,8 @@ private:
 	uint32				prev_last_sec_frame_count = 0;
 	float				dt = 0.0f;
 	int					capped_ms = -1;
-
-public:
-	bool				debug = false;
-
 };
 
-extern j1App* App; 
+extern j1App* App; // No student is asking me about that ... odd :-S
 
 #endif

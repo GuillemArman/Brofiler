@@ -2,7 +2,7 @@
 #define __j1RENDER_H__
 
 #include "SDL/include/SDL.h"
-#include "Point.h"
+#include "p2Point.h"
 #include "j1Module.h"
 
 class j1Render : public j1Module
@@ -22,7 +22,6 @@ public:
 
 	// Called each loop iteration
 	bool PreUpdate();
-	bool Update(float dt);
 	bool PostUpdate();
 
 	// Called before quitting
@@ -46,23 +45,12 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
-	void MoveCam(float x, float y);
-	void SetCamPos(float x, float y);
-	void SetCamBoundaries(SDL_Rect rect);
-	void CamBoundOrigin();
-	void ScaleCamBoundaries(int x, int y, int w, int h);
-	void ScaleCamBoundaries(int scale);
-
 public:
 
 	SDL_Renderer*	renderer;
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
-
-private:
-	// camera
-	SDL_Rect cam_boundaries;
 };
 
 #endif // __j1RENDER_H__

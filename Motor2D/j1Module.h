@@ -7,13 +7,9 @@
 #define __j1MODULE_H__
 
 #include "p2SString.h"
-#include  "p2Defs.h"
 #include "PugiXml\src\pugixml.hpp"
-#include <list>
-#include <string>
+
 class j1App;
-class b2Fixture;
-class Collider;
 
 class j1Module
 {
@@ -75,23 +71,7 @@ public:
 	{
 		return true;
 	}
-	//COLLISIONS
-	virtual void OnCollision(Collider* bodyA, Collider* bodyB)
-	{
 
-	}
-	//CONSOLE
-	virtual void OnCommand(std::list<std::string>& tokens) {
-
-	}
-
-	virtual void OnCVar(std::list<std::string>& tokens) {
-
-	}
-
-	virtual void SaveCVar(std::string& cvar_name, pugi::xml_node& node) const {
-
-	}
 public:
 
 	p2SString	name;

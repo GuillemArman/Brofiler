@@ -5,21 +5,21 @@
     <title>Pathfinding Test</title>
     <organization>UPC</organization>
   </app>
-  <atlas file ="gui/atlas_lol.png"/>
+	
   <renderer>
     <vsync value="true"/>
   </renderer>
 
-  <fonts>
-    <default_font file="fonts/open_sans/OpenSans-Regular.ttf" size="24"/>
-  </fonts>
+  <font>
+    <default_font file="fonts/open_sans/OpenSans-Regular.ttf" size="12"/>
+  </font>
 
   <gui>
-    <atlas file="gui/sf2.png"/>
+    <atlas file="gui/atlas.png"/>
   </gui>
     
   <window>
-    <resolution width="1024" height="576" scale="1"/>
+    <resolution width="1024" height="768" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
