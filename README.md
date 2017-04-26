@@ -81,25 +81,25 @@ void Engine::UpdateLogic()
 
 ### Step 5: Sampling Mode
 Check suspect functions in the table.  
-[[http://brofiler.com/tutorial/sampling_checked.png]]  
+![](http://brofiler.com/tutorial/sampling_checked.png)
 From now these functions are marked for sampling.  
 All the code inside the scope of these functions will be sampled during next run.  
 Click Start Button to start new profiling run, press Stop Button to get results.  
-Click [[http://brofiler.com/tutorial/clear_sampling.png]] to clear all sampling scopes.[[http://brofiler.com/tutorial/sampling.png]]
+Click ![](http://brofiler.com/tutorial/clear_sampling.png) to clear all sampling scopes.![](http://brofiler.com/tutorial/sampling.png)
 
 ### Step 6: Hooking Mode
 Open any Sampling Frame. Click a checkbox in the table with sampling results to inject profiler counter inside this function.  
-[[http://brofiler.com/tutorial/hooking_checked.png]]  
+1[](http://brofiler.com/tutorial/hooking_checked.png)
 Get another profining run.  
-Click [[http://brofiler.com/tutorial/hooking_icon.png]] to remove all injected counters.  
-[[http://brofiler.com/tutorial/hooking.png]]
+Click ![](http://brofiler.com/tutorial/hooking_icon.png) to remove all injected counters.  
+![](http://brofiler.com/tutorial/hooking.png)
 
 ### Step 7: Source View
 Double click on any row in the table will open Source View window.
-[[http://brofiler.com/tutorial/source2.png]]
+![](http://brofiler.com/tutorial/source2.png)
 
 ### Step 8: Save and Load
-Click [[http://brofiler.com/tutorial/save_icon.png]] to save *.prof file with active session.  
+Click ![](http://brofiler.com/tutorial/save_icon.png) to save *.prof file with active session.  
 Drag and Drop any *.prof file on the timeline to load it.
 
 
