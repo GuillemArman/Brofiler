@@ -35,6 +35,7 @@ Download and unzip archive with precompiled libraries:
 * Add recently unpacked directory to **Project Properties -> C/C++ -> Additional Include Directories**
 * Add **ProfilerCore.lib** to **Project Properties -> Linker -> Input -> Additional Dependencies**
 * Find Main Loop of your Game and insert **BROFILER_FRAME** macros:
+
 ```c++
 #include "Brofiler.h"
 
@@ -76,7 +77,7 @@ void Engine::UpdateLogic()
   
 }
 ```
-[[http://brofiler.com/tutorial/counters.png]]
+![][http://brofiler.com/tutorial/counters.png]
 
 ### Step 5: Sampling Mode
 Check suspect functions in the table.  
@@ -123,3 +124,14 @@ Below the threads panel you get a listed overview of the Regions which are sorte
 ## TODO'S
 
 Download the zip here: https://github.com/GuillemArman/Brofiler/blob/master/Brofiler_research_exercise.zip
+
+*TODO 1:Integrate Brofiler into new directories
+ Hint: Don't forget to add all the files you need into Game directory
+ 
+ *TODO 2: include Brofiler.h and the library
+ 
+ *TODO 3: Find Main Loop of your Game and insert BROFILER_FRAME macros
+ 
+ *TODO4: Include a Brofiler macro to see how Brofiler works
+ 
+ *TODO5: Implement Brofiler on your project and look for the slowlest function
