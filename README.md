@@ -120,6 +120,12 @@ Below the threads panel you get a listed overview of the Regions which are sorte
 
 ![](http://docs.cryengine.com/download/attachments/24283922/image2016-3-11%2015%3A28%3A31.png?version=1&modificationDate=1457706511000&api=v2)
 
+With this analyisis you can check which function takes more time and look for the problem in the code. 
+
+### Drawbacks
+If Brofiler is used in an extern computer you will not be able to use the Sampling Mode. 
+If the game crashes, Brofiler stops recording.
+
 
 ## TODO'S
 
