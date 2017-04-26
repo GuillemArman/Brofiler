@@ -77,7 +77,7 @@ void Engine::UpdateLogic()
   
 }
 ```
-![][http://brofiler.com/tutorial/counters.png]
+![](http://brofiler.com/tutorial/counters.png)
 
 ### Step 5: Sampling Mode
 Check suspect functions in the table.  
