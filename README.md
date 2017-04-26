@@ -123,21 +123,21 @@ Below the threads panel you get a listed overview of the Regions which are sorte
 With this analyisis you can check which function takes more time and look for the problem in the code. 
 
 ### Drawbacks
-If Brofiler is used in an extern computer you will not be able to use the Sampling Mode. 
-If the game crashes, Brofiler stops recording.
+- If Brofiler is used in an extern computer you will not be able to use the Sampling Mode. 
+- If the game crashes, Brofiler stops recording.
 
 
 ## TODO'S
 
 Download the zip here: https://github.com/GuillemArman/Brofiler/blob/master/Brofiler_research_exercise.zip
 
-*TODO 1:Integrate Brofiler into new directories
+- TODO 1:Integrate Brofiler into new directories
  Hint: Don't forget to add all the files you need into Game directory
  
- *TODO 2: include Brofiler.h and the library
+ - TODO 2: include Brofiler.h and the library
  
- *TODO 3: Find Main Loop of your Game and insert BROFILER_FRAME macros
+- TODO 3: Find Main Loop of your Game and insert BROFILER_FRAME macros
  
- *TODO4: Include a Brofiler macro to see how Brofiler works
+- TODO4: Include a Brofiler macro to see how Brofiler works
  
- *TODO5: Implement Brofiler on your project and look for the slowlest function
+- TODO5: Implement Brofiler on your project and look for the slowlest function
