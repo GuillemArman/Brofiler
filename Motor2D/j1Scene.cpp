@@ -45,7 +45,7 @@ bool j1Scene::Start()
 
 	debug_tex = App->tex->Load("maps/path2.png");
 
-	// TODO 3: Create the image (rect {485, 829, 328, 103}) and the text "Hello World" as UI elements
+
 
 
 	return true;

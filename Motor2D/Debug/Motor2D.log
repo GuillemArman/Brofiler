@@ -1,3 +1,38 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Development - Class 11 Handout.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  p2Log.cpp
+  j1Window.cpp
+  j1Timer.cpp
+  j1Textures.cpp
+  j1Scene.cpp
+c:\users\guillemaj\documents\github\brofiler\motor2d\j1scene.cpp(97): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\guillemaj\documents\github\brofiler\motor2d\j1scene.cpp(100): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+c:\users\guillemaj\documents\github\brofiler\motor2d\j1scene.cpp(103): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\guillemaj\documents\github\brofiler\motor2d\j1scene.cpp(106): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+  j1Render.cpp
+  j1PerfTimer.cpp
+  j1Pathfinding.cpp
+c:\users\guillemaj\documents\github\brofiler\motor2d\p2point.h(114): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  c:\users\guillemaj\documents\github\brofiler\motor2d\p2point.h(110): note: while compiling class template member function 'int p2Point<int>::DistanceTo(const p2Point<int> &) const'
+  c:\users\guillemaj\documents\github\brofiler\motor2d\j1pathfinding.cpp(160): note: see reference to function template instantiation 'int p2Point<int>::DistanceTo(const p2Point<int> &) const' being compiled
+  c:\users\guillemaj\documents\github\brofiler\motor2d\j1pathfinding.h(81): note: see reference to class template instantiation 'p2Point<int>' being compiled
+c:\users\guillemaj\documents\github\brofiler\motor2d\p2point.h(114): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+  j1Map.cpp
+c:\users\guillemaj\documents\github\brofiler\motor2d\j1map.cpp(107): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\guillemaj\documents\github\brofiler\motor2d\j1map.cpp(108): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  j1Main.cpp
+  j1Input.cpp
+  j1Gui.cpp
+  j1Fonts.cpp
+  j1FileSystem.cpp
+  j1Audio.cpp
+  j1App.cpp
+c:\users\guillemaj\documents\github\brofiler\motor2d\j1app.cpp(225): warning C4018: '<': signed/unsigned mismatch
+c:\users\guillemaj\documents\github\brofiler\motor2d\j1app.cpp(221): warning C4477: 'sprintf_s' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 6 has type 'uint64'
+  c:\users\guillemaj\documents\github\brofiler\motor2d\j1app.cpp(221): note: consider using '%llu' in the format string
+  c:\users\guillemaj\documents\github\brofiler\motor2d\j1app.cpp(221): note: consider using '%I64u' in the format string
+  pugixml.cpp
+  Generating Code...
+     Creating library C:\Users\guillemaj\Documents\GitHub\Brofiler\Debug\Brofiler Research.lib and object C:\Users\guillemaj\Documents\GitHub\Brofiler\Debug\Brofiler Research.exp
+physfs.lib(physfs.obj) : warning LNK4217: locally defined symbol _sprintf imported in function _PHYSFS_setSaneConfig
   Motor2D.vcxproj -> C:\Users\guillemaj\Documents\GitHub\Brofiler\Debug\Brofiler Research.exe
   Motor2D.vcxproj -> C:\Users\guillemaj\Documents\GitHub\Brofiler\Debug\Brofiler Research.pdb (Full PDB)
