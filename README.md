@@ -31,7 +31,7 @@ Download and unzip archive with precompiled libraries:
 * EasyHook64.dll ([EasyHook](http://easyhook.codeplex.com/))
 * ProfilerTest64.exe (Small console application to test profiler)
 
-https://github.com/bombomby/brofiler/releases
+([Download]https://github.com/bombomby/brofiler/releases)
 
 ### Step 2: Integration
 * Add recently unpacked directory to **Project Properties -> C/C++ -> Additional Include Directories**
@@ -131,7 +131,7 @@ With this analyisis you can check which function takes more time and look for th
 
 ## TODO'S
 
-Download the zip here: https://github.com/GuillemArman/Brofiler/blob/master/Brofiler_research_exercise.zip
+Download the zip ([here]https://github.com/GuillemArman/Brofiler/blob/master/Brofiler_research_exercise.zip)
 
 - TODO 1:Integrate Brofiler into new directories
  Hint: Don't forget to add all the files you need into Game directory
