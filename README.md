@@ -31,6 +31,8 @@ Download and unzip archive with precompiled libraries:
 * EasyHook64.dll ([EasyHook](http://easyhook.codeplex.com/))
 * ProfilerTest64.exe (Small console application to test profiler)
 
+https://github.com/bombomby/brofiler/releases
+
 ### Step 2: Integration
 * Add recently unpacked directory to **Project Properties -> C/C++ -> Additional Include Directories**
 * Add **ProfilerCore.lib** to **Project Properties -> Linker -> Input -> Additional Dependencies**
